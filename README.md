@@ -1,7 +1,10 @@
 # Cara Memakai R
 Guys ni udah sempat cari2 tutorial, dicoba2 dulu ya.
+
 [Basic] - Buat yang basic banget, misal cara compile, ngerun, print, hitung mean tanpa agregasi, dll
+
 [Data import] - cara masukin .csv nya ke variabel
+
 [Hitung mean] - cara hitung rata-rata yang pake agregasi *Tapi pake library laen*
 
 
