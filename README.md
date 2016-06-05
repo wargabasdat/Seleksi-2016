@@ -7,6 +7,7 @@ Guys ni udah sempat cari2 tutorial, dicoba2 dulu ya.
 
 [Hitung mean] - cara hitung rata-rata yang pake agregasi *Tapi pake library laen*
 
+[Buat Variabel Kategori] - cara mengelompokkan data ke dalam kategori-kategori
 
 ## Seleksi-2016
 Seleksi Calon Warga Basdat 2016: Introduction to Data Science
@@ -88,3 +89,4 @@ Meskipun Anda mengalami kesusahan dalam menyelesaikan tugas, kami harap agar And
 [Data import]: <http://www.r-tutor.com/r-introduction/data-frame/data-import>
 [Hitung mean]: <https://www.miskatonic.org/2012/09/24/counting-and-aggregating-r/>
 [Basic]: <http://www.tutorialspoint.com/r/r_basic_syntax.htm>
+[Buat Variabel Kategori]: <http://stackoverflow.com/questions/22075592/creating-category-variables-from-numerical-variable-in-r>
