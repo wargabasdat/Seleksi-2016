@@ -9,6 +9,10 @@ Guys ni udah sempat cari2 tutorial, dicoba2 dulu ya.
 
 [Buat Variabel Kategori] - cara mengelompokkan data ke dalam kategori-kategori
 
+[Buat Value Label] - Membuat label
+
+[R Data Types] - Tipe-tipe data yang ada di R
+
 ## Seleksi-2016
 Seleksi Calon Warga Basdat 2016: Introduction to Data Science
 
@@ -90,3 +94,5 @@ Meskipun Anda mengalami kesusahan dalam menyelesaikan tugas, kami harap agar And
 [Hitung mean]: <https://www.miskatonic.org/2012/09/24/counting-and-aggregating-r/>
 [Basic]: <http://www.tutorialspoint.com/r/r_basic_syntax.htm>
 [Buat Variabel Kategori]: <http://stackoverflow.com/questions/22075592/creating-category-variables-from-numerical-variable-in-r>
+[Buat Value Label]: <http://www.statmethods.net/input/valuelabels.html>
+[R Data Types]: <http://www.statmethods.net/input/datatypes.html>
