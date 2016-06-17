@@ -9,6 +9,7 @@ mydata = read.csv("Salaries.csv")
 # Pengelompokan Tinggi (>mean+stdev)
 tes <- mydata$TotalPayBenefits
 Pengelompokan_gaji <- cut(tes, c(0,mean(tes)-sd(tes),mean(tes)+sd(tes),max(tes)), include.lowest=TRUE, include.highest=TRUE, labels = c("Rendah","Sedang","Tinggi"))
+write.csv(Pengelompokan_gaji, file="~/Desktop/PengelompokanGaji.csv")
 
 # Visualisasi data
 ggsave("~/Desktop/Pengelompokan_Gaji.png", plot = qplot(Pengelompokan_gaji, data = mydata, geom = "bar", fill = Pengelompokan_gaji, main = "Pengelompokan Gaji San Fransisco"))
