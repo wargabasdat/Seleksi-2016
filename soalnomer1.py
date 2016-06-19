@@ -14,7 +14,7 @@ for p in data['POLYLINE']:
 	poly=numpy.append(poly,[p[0][1],p[0][0]])
 #setelah di append di buat menjadi item yang berisi koordinat	
 poly2d= numpy.reshape(poly,(-1,2))
-#membuat file keluaran dan mencari nilai koordinat yang paling banyak muncul dari data
+#membuat file keluaran dan mencari nilai koordinat yang paling banyak muncul dari data poly2d
 axis = 0
 u, indices = numpy.unique(poly2d, return_inverse=True)
 with open(OUTPUTF, 'w', newline='') as fl:
