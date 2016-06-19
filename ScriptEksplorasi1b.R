@@ -119,8 +119,8 @@ cor2<-cor(dataAllMale[c("like","intel","attr","sinc","fun","amb","shar")],use="c
 cor3<-cor(dataAllMale[c("match","intel","attr","sinc","fun","amb","shar")],use="complete") #dilihat korelasinya dengan atribut match
 
 #visualisasi matriks korelasi
-corrplot(cor1, method="number")
-corrplot(cor2, method="number")
-corrplot(cor3, method="number")
+corrplot.mixed(cor1, upper="number", lower="ellipse")
+corrplot.mixed(cor2, upper="number", lower="ellipse")
+corrplot.mixed(cor3, upper="number", lower="ellipse")
 
 ##Dari tiga analisis di atas, kesimpulannya ialah bahwa rata-rata pria mencari wanita pada awalnya dengan melihat attractiveness-nya.

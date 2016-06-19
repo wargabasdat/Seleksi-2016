@@ -119,9 +119,9 @@ cor2<-cor(dataAllFemale[c("like","intel","attr","sinc","fun","amb","shar")],use=
 cor3<-cor(dataAllFemale[c("match","intel","attr","sinc","fun","amb","shar")], use="complete") #dilihat korelasinya dengan atribut match
 
 #visualisasi matriks korelasi
-corrplot(cor1, method="number")
-corrplot(cor2, method="number")
-corrplot(cor3, method="number")
+corrplot.mixed(cor1, upper="number", lower="ellipse")
+corrplot.mixed(cor2, upper="number", lower="ellipse")
+corrplot.mixed(cor3, upper="number", lower="ellipse")
 
 ##Dari tiga analisis di atas, kesimpulannya ialah bahwa rata-rata wanita memang pada bawasannya tertarik pada intelejensi pria.
 #Namun setelah mendapatkan pasangan, mereka lebih tertarik pada attractiveness dari pria.
