@@ -1,21 +1,18 @@
+#SCRIPT DATA ANALYSIS DAN DATA VISUALIZATION KRIMINAL SAN FRANCISCO
+
 #Library yang dibutuhkan
 library(ggplot2)
 library(readr)
 library(dplyr)
 library(RColorBrewer)
 library(leaflet)
+library(lubridate)
 
 #Memasukan data ke dalam
 train <- read.csv("train.csv", header = TRUE)
 test <- read.csv("test.csv", header = TRUE)
 
-#Menggabungkaan kedua dataset (menyamakan jumlah variabel terlebih dahulu)
-train.new <- data.frame(Id = rep("None", nrow(train)), train[,])
-test.Category <- data.frame(Category = rep("None", nrow(test)), test[,])
-test.Descript <- data.frame(Descript = rep("None", nrow(test.Category)), test.Category[,])
-test.new <- data.frame(Resolution = rep("None", nrow(test.Descript)), test.Descript[,])
-
-data.combined <- rbind(test.new, train.new)
+#PREDIKSI KATEGORI KEJAHATAN DI UJUNG JALAN
 
 #Menambahkan kolum street corner pada kedua dataset
 train$StreetCorner = "No"
@@ -25,13 +22,13 @@ test$StreetCorner = "No"
 test[which(grepl( '/',train$Address)),'StreetCorner']="Yes"
 
 #Memprediksi kategori kejahatan yang ada dengan melihat isi kategori pada dataset train
-unique(as.character(train$Category[which(train$StreetCorner == "Yes")]))
+unique((train$Category[which(train$StreetCorner == "Yes")]))
 
 #Mengambil Data Kejahatan yang Terjadi di Ujung Jalan
 train.streetcorner <- train[which(train$StreetCorner == "Yes"),]
 test.streetcorner <- test[which(test$StreetCorner == "Yes"),]
 
-#Menampilkan peta wilayah semua kejahatan di San Fransisco
+#Menampilkan peta wilayah semua kejahatan di San Francisco
 trains.map <- function(categories, n) {
   
   new.train <- filter(train.streetcorner, Category %in% categories) %>% droplevels() 
@@ -59,21 +56,21 @@ trains.map(c("WARRANTS", "OTHER OFFENSES", "LARCENY/THEFT", "VEHICLE THEFT",
              "EXTORTION", "GAMBLING", "BAD CHECKS", "RECOVERED VEHICLE"
              , "PORNOGRAPHY/OBSCENE MAT"), n = nrow(train.streetcorner))
 
-#Tren Kejahatan di San Fransisco secara Keseluruhan
+#TREN KEJAHATAN DI UJUNG JALAN
 
-#Menampilkan banyaknya kejahatan di San Fransisco perkategori pada console
-sort(table(train.streetcorner$Category), decreasing = TRUE)
+#Menampilkan banyaknya kejahatan di San Francisco perkategori pada console
+head(sort(table(train.streetcorner$Category), decreasing = TRUE))
 
-#Menampilkan histogram kejahatan di San Fransisco
+#Menampilkan histogram kejahatan di San Francisco
 train.streetcorner %>% 
   ggplot(aes(x = Category)) +
   geom_bar() +
-  ggtitle("Banyaknya Kejahatan di San Fransisco Perkategori") +
+  ggtitle("Banyaknya Kejahatan di San Francisco Perkategori") +
   ylab("Banyak Kejahatan") +
   xlab("Kategori Kejahatan") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-#Menampilkan histogram banyaknya kejahatan di San Fransisco perkategori perhari 
+#Menampilkan histogram banyaknya kejahatan di San Francisco perhari dalam satu minggu
 train.streetcorner %>%
   ggplot(aes(x = factor(DayOfWeek, levels=c('Monday', 'Tuesday',
                                             'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday')))) +
@@ -83,10 +80,26 @@ train.streetcorner %>%
   ylab("Banyaknya Kejahatan") +
   labs(fill = "Kategori")
 
-#Menampilkan banyaknya kejahatan di San Fransisco perkategori perhari 
-sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Monday")]), decreasing = TRUE)
+#Menampilkan histogram banyaknya kejahatan di San Francisco perkategori untuk masing-masing hari
+train.streetcorner$DayOfWeek <- factor(train.streetcorner$DayOfWeek, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
+ggplot(data=train.streetcorner, aes(x=Category)) +
+  geom_bar(colour="black", fill="skyblue") +
+  xlab('Kategori') +
+  ylab('Banyaknya Kejahatan') + 
+  ggtitle("Tren Kejahatan di San Fransisco Perkategori untuk Masing-Masing Hari") +
+  facet_wrap(~DayOfWeek) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-#Menampilkan histogram banyaknya kejahatan di San Fransisco perkategori perdistrik 
+#Menampilkan tren kejahatan di San Francisco perkategori perhari dalam satu minggu pada console
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Monday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Tuesday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Wednesday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Thursday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Friday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Saturday")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$DayOfWeek == "Sunday")]), decreasing = TRUE))
+
+#Menampilkan histogram banyaknya kejahatan di San Francisco perdistrik 
 train.streetcorner %>%
   ggplot(aes(x = PdDistrict)) +
   geom_bar(aes(fill=factor(Category))) +
@@ -95,11 +108,65 @@ train.streetcorner %>%
   ylab("Banyaknya Kejahatan") +
   labs(fill = "Kategori")
 
-#Menampilkan banyaknya kejahatan di San Fransisco perkategori perhari 
-sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "TENDERLOIN")]), decreasing = TRUE)
+#Menampilkan histogram banyaknya kejahatan di San Francisco perkategori untuk masing-masing distrik
+ggplot(data=train.streetcorner, aes(x=Category)) +
+  geom_bar(colour="black", fill="magenta2") +
+  xlab('Kategori') +
+  ggtitle("Tren Kejahatan di San Fransisco Perkategori untuk Masing-Masing Distrik") +
+  ylab('Banyaknya Kejahatan') + 
+  facet_wrap(~PdDistrict) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
+#Menampilkan banyaknya kejahatan di San Francisco perdistrik kepolisian pada console 
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "TENDERLOIN")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "BAYVIEW")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "CENTRAL")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "INGLESIDE")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "MISSION")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "NORTHERN")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "PARK")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "RICHMOND")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "SOUTHERN")]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$PdDistrict == "TARAVAL")]), decreasing = TRUE))
 
-#Menampilkan histogram banyaknya kejahatan di San Fransisco perkategori perbulan
+#Membuat kolom baru berupa tahun yang diambil dari tanggal
+train.streetcorner$Year = year(train.streetcorner$Dates)
+test.streetcorner$Year = year(test.streetcorner$Dates)
+
+#Menampilkan histogram banyaknya kejahatan di San Francisco perkategori untuk masing-masing tahun
+ggplot(data=train.streetcorner, aes(x=Category)) +
+  geom_bar(colour="black", fill="springgreen") +
+  xlab('Kategori') +
+  ylab('Banyaknya Kejahatan') + 
+  ggtitle("Tren Kejahatan di San Fransisco Perkategori untuk Masing-Masing Tahun") +
+  facet_wrap(~Year) +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+#Menampilkan histogram banyaknya kejahatan di San Francisco pertahun
+train.streetcorner %>%
+  ggplot(aes(x = Year)) +
+  geom_bar(aes(fill=factor(Category))) +
+  ggtitle("Tren Kejahatan di San Fransisco Pertahun") +
+  xlab("Tahun") +
+  ylab("Banyaknya Kejahatan") +
+  labs(fill = "Kategori")
+
+#Menampilkan banyaknya kejahatan di San Francisco perdistrik kepolisian pada console 
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2003)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2004)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2005)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2006)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2007)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2008)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2009)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2010)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2011)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2012)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2013)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2014)]), decreasing = TRUE))
+head(sort(table(train.streetcorner$Category[which(train.streetcorner$Year == 2015)]), decreasing = TRUE))
+
+#MENGATEGORIKAN KATEGORI-KATEGORI KEJAHATAN (COLLAR-CRIME)
 
 #Menambahkan kolom Collar Crime berdasarkan kategori yang ada
 
@@ -126,42 +193,11 @@ train.streetcorner[which(train.streetcorner$Category=="TRESPASS"),'CollarCrime']
 train.streetcorner[which(train.streetcorner$Category=="ARSON"),'CollarCrime'] = "blue"
 train.streetcorner[which(train.streetcorner$Category=="RECOVERED VEHICLE"),'CollarCrime'] = "blue"
 
-#Menampilkan histogram banyaknya kejahatan di San Fransisco perkategori untuk masing-masing hari
-train.streetcorner$DayOfWeek <- factor(train.streetcorner$DayOfWeek, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"))
-ggplot(data=train.streetcorner, aes(x=Category)) +
-  geom_bar(colour="black", fill="skyblue") +
-  xlab('Kategori') +
-  ylab('Banyaknya Kejahatan') + 
-  facet_wrap(~DayOfWeek) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-#Menampilkan histogram banyaknya kejahatan di San Fransisco perkategori untuk masing-masing distrik
-ggplot(data=train.streetcorner, aes(x=Category)) +
-  geom_bar(colour="black", fill="magenta2") +
-  xlab('Kategori') +
-  ylab('Banyaknya Kejahatan') + 
-  facet_wrap(~PdDistrict) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-#Membuat kolom baru berupa tahun yang diambil dari tanggal
-train.streetcorner$Year = year(train.streetcorner$Dates)
-
-#Menampilkan histogram banyaknya kejahata(n di San Fransisco perkategori untuk masing-masing tahun
-ggplot(data=train.streetcorner, aes(x=Category)) +
-  geom_bar(colour="black", fill="springgreen") +
-  xlab('Kategori') +
-  ylab('Banyaknya Kejahatan') + 
-  facet_wrap(~Year) +
-  theme(axis.text.x = element_text(angle = 90, hjust = 1))
-
-#Menampilkan histogram banyaknya kejahata(n di San Fransisco pertahun
-train.streetcorner %>%
-  ggplot(aes(x = Year)) +
+#Menampilkan histogram kelompok kejahatan di San Francisco
+train.streetcorner %>% 
+  ggplot(aes(x = factor(CollarCrime, levels=c('white', 'blue',
+                                            'other')))) +
   geom_bar(aes(fill=factor(Category))) +
-  ggtitle("Tren Kejahatan di San Fransisco Pertahun") +
-  xlab("Tahun") +
-  ylab("Banyaknya Kejahatan") +
-  labs(fill = "Kategori")
-
-
-
+  ggtitle("Banyaknya Kejahatan di San Fransisco Perkelompok") +
+  ylab("Banyak Kejahatan") +
+  xlab("Collar Crime") 
