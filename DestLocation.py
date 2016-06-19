@@ -1,11 +1,27 @@
 
 import time
 import json
+import csv
 import numpy as np
 import pandas as pd
 import CoordinateToPlace as gp
+import BasemapPortugal as bp
+import BarChart as bc
 
 #from utils import haversineKaggle, heading, CITY_CENTER
+
+destPointList = []
+destPointList = set(destPointList)
+
+#numberOfPlace = []
+numberOfPlace = {}
+
+def initializeNumberOfPlace():
+    with open('metaData_taxistandsID_name_GPSlocation.csv') as f:
+        for row in csv.reader(f):
+            if (row[0]!="ID"):
+                #numberOfPlace[row[0]] = 0
+                numberOfPlace[row[1]] = 0
 
 def processRow(row):
     x = row['POLYLINE']
@@ -15,17 +31,24 @@ def processRow(row):
         #data += [x[-1,1], x[-1,0], len(x)]
         destinationTuple = (x[-1,1], x[-1,0])
         place = gp.getPlace(destinationTuple)
-        data = [x[-1,1], x[-1,0], place, len(x)]
+        #numberOfPlace[place[0]] = numberOfPlace[place[0]] + 1
+        numberOfPlace[place[1]] = numberOfPlace[place[1]] + 1
+        #numberOfPlace.append(place[1])
+        data = [x[-1,1], x[-1,0], place[0], place[1], len(x)]
+        #data = [x[-1,1], x[-1,0], place[0], len(x)]
+        destPointList.add((x[-1,1], x[-1,0]))
     else:
-        data = [-1]*3
+        data = [-1]*4
         data += [len(x)]
-    return pd.Series(np.array(data, dtype=float))
+    return pd.Series(np.array(data))
+    #return pd.Series(np.array(data, dtype=float))
 
 t0 = time.time()
 """
 FEATURES = ['wday','hour','xs','ys','d_st','heading']
 """
 gp.initializePlaceList()
+initializeNumberOfPlace()
 
 print('reading training data ...')
 df = pd.read_csv('train.csv', converters={'POLYLINE': lambda x: json.loads(x)})#, nrows=100)
@@ -37,7 +60,8 @@ ds.columns = FEATURES + ['Destination Latitude','Destination Longitude','Number 
 keep_col = ['Destination Latitude','Destination Longitude', 'Number Of Points']
 ds = ds[keep_col]
 """
-ds.columns = ['Destination Latitude','Destination Longitude','Place ID', 'Number of Places Passed By']
+ds.columns = ['Destination Latitude','Destination Longitude','Place ID','Place Name', 'Number of Places Passed By']
+#ds.columns = ['Destination Latitude','Destination Longitude','Place ID', 'Number of Places Passed By']
 """
 df.drop(['POLYLINE','TIMESTAMP','TRIP_ID','DAY_TYPE','ORIGIN_CALL','ORIGIN_STAND'], 
         axis=1, inplace=True)
@@ -54,21 +78,25 @@ df = pd.read_csv('test.csv', converters={'POLYLINE': lambda x: json.loads(x)})
 
 print('preparing test data ...')
 ds = df.apply(processRow, axis=1)
-"""
-ds.columns = FEATURES + ['Destination Latitude','Destination Longitude','Number Of Points']
-keep_col = ['Destination Latitude','Destination Longitude', 'Number Of Points']
-ds = ds[keep_col]
-"""
-ds.columns = ['Destination Latitude','Destination Longitude','Place ID', 'Number of Places Passed By']
-"""
-df.drop(['POLYLINE','TIMESTAMP','DAY_TYPE','ORIGIN_CALL','ORIGIN_STAND',
-         'MISSING_DATA'], axis=1, inplace=True)
-"""
+
+ds.columns = ['Destination Latitude','Destination Longitude','Place ID','Place Name', 'Number of Places Passed By']
+#ds.columns = ['Destination Latitude','Destination Longitude','Place ID', 'Number of Places Passed By']
+
 df = df.join(ds)
 df.to_csv('destLocation_test.csv', index=False)
 
 print('Done in %.1f sec.' % (time.time()-t0))
 
+"""
+sum = 0
+for keys in numberOfPlace.keys():
+    sum += numberOfPlace[keys]
+print("Jumlah : ")
+print(sum)
+"""
+
+bc.destLocChart(numberOfPlace)
+bp.drawMap(destPointList)
 
 """
 
