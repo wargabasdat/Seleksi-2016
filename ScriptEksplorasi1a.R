@@ -114,12 +114,14 @@ legend("bottomright", c("intel","attr","sinc","fun","amb","shar"), col=c("blue",
 
 ##Analisis Ketiga ialah dengan melihat korelasi dari semua faktor utama pada dataFemale
 #Fungsi yang digunakan ialah cor() dan divisualisasikan dengan corrplot lewat package "corrplot"
-cor1<-cor(dataAllFemale[c("match","intel","attr","sinc","fun","amb","shar")],use="complete") #dilihat korelasinya dengan atribut match
+cor1<-cor(dataAllFemale[c("dec","intel","attr","sinc","fun","amb","shar")],use="complete") #dilihat korelasinya dengan atribut dec
 cor2<-cor(dataAllFemale[c("like","intel","attr","sinc","fun","amb","shar")],use="complete") #dilihat korelasinya dengan atribut like
+cor3<-cor(dataAllFemale[c("match","intel","attr","sinc","fun","amb","shar")], use="complete") #dilihat korelasinya dengan atribut match
 
 #visualisasi matriks korelasi
 corrplot(cor1, method="number")
 corrplot(cor2, method="number")
+corrplot(cor3, method="number")
 
-##Dari tiga analisis di atas, kesimpulannya ialah bahwa wanita memang pada bawasannya tertarik pada intelejensi pria.
+##Dari tiga analisis di atas, kesimpulannya ialah bahwa rata-rata wanita memang pada bawasannya tertarik pada intelejensi pria.
 #Namun setelah mendapatkan pasangan, mereka lebih tertarik pada attractiveness dari pria.
