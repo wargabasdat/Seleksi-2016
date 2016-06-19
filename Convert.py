@@ -1,3 +1,5 @@
+# Mengubah bentuk data menjadi lebih mudah digunakan.
+
 import sys
 import pandas as pd
 
