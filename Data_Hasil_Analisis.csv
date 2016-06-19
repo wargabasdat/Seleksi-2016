@@ -1,0 +1,92 @@
+mean(DatasetMatchGender0$intel, na.rm = TRUE);8.075073
+mean(DatasetMatchGender0$attr, na.rm = TRUE);7.118459
+mean(DatasetMatchGender0$sinc, na.rm = TRUE);7.8207
+mean(DatasetMatchGender0$fun, na.rm = TRUE);7.644217
+mean(DatasetMatchGender0$amb, na.rm = TRUE);7.485271
+mean(DatasetMatchGender0$shar, na.rm = TRUE);6.854167
+mean(DatasetNoMatchGender0$intel, na.rm = TRUE);7.31886
+mean(DatasetNoMatchGender0$attr, na.rm = TRUE);5.676289
+mean(DatasetNoMatchGender0$sinc, na.rm = TRUE);6.952939
+mean(DatasetNoMatchGender0$fun, na.rm = TRUE);5.999849
+mean(DatasetNoMatchGender0$amb, na.rm = TRUE);6.844665
+mean(DatasetNoMatchGender0$shar, na.rm = TRUE);5.10439
+mean(DatasetGender0$intel1_1, na.rm = TRUE);21.0025
+mean(DatasetGender0$attr1_1, na.rm = TRUE);18.05522
+mean(DatasetGender0$sinc1_1, na.rm = TRUE);18.30501
+mean(DatasetGender0$fun1_1, na.rm = TRUE);17.14729
+mean(DatasetGender0$amb1_1, na.rm = TRUE);12.82722
+mean(DatasetGender0$shar1_1, na.rm = TRUE);12.70419
+mean(DatasetGender0$intel1_s, na.rm = TRUE);17.71782
+mean(DatasetGender0$attr1_s, na.rm = TRUE);17.64102
+mean(DatasetGender0$sinc1_s, na.rm = TRUE);16.43135
+mean(DatasetGender0$fun1_s, na.rm = TRUE);15.04756
+mean(DatasetGender0$amb1_s, na.rm = TRUE);12.39864
+mean(DatasetGender0$shar1_s, na.rm = TRUE);13.45418
+mean(DatasetGender0$intel1_2, na.rm = TRUE);19.0214
+mean(DatasetGender0$attr1_2, na.rm = TRUE);21.89075
+mean(DatasetGender0$sinc1_2, na.rm = TRUE);16.69677
+mean(DatasetGender0$fun1_2, na.rm = TRUE);17.46384
+mean(DatasetGender0$amb1_2, na.rm = TRUE);11.41274
+mean(DatasetGender0$shar1_2, na.rm = TRUE);14.03774
+mean(DatasetGender0$intel1_3, na.rm = TRUE);19.67767
+mean(DatasetGender0$attr1_3, na.rm = TRUE);20.8492
+mean(DatasetGender0$sinc1_3, na.rm = TRUE);17.1978
+mean(DatasetGender0$fun1_3, na.rm = TRUE);15.88177
+mean(DatasetGender0$amb1_3, na.rm = TRUE);12.35496
+mean(DatasetGender0$shar1_3, na.rm = TRUE);14.07182
+"cor(DatasetGender0[c(""like"",""intel"",""attr"",""sinc"",""fun"",""amb"",""shar"")], use=""complete"")";like
+like;1
+intel;0.5345676
+attr;0.6641415
+sinc;0.5517626
+fun;0.7110151
+amb;0.45942
+shar;0.6804205
+"cor(DatasetGender0[c(""match"",""intel"",""attr"",""sinc"",""fun"",""amb"",""shar"")], use=""complete"")";match
+like;1
+intel;0.1783419
+attr;0.2701896
+sinc;0.1757962
+fun;0.3020728
+amb;0.1385553
+shar;0.2990986
+mean(DatasetGender1$intel1_1, na.rm = TRUE);19.53737
+mean(DatasetGender1$attr1_1, na.rm = TRUE);26.92169
+mean(DatasetGender1$sinc1_1, na.rm = TRUE);16.49844
+mean(DatasetGender1$fun1_1, na.rm = TRUE);17.76389
+mean(DatasetGender1$amb1_1, na.rm = TRUE);8.552829
+mean(DatasetGender1$shar1_1, na.rm = TRUE);10.99657
+mean(DatasetGender1$intel1_s, na.rm = TRUE);16.77512
+mean(DatasetGender1$attr1_s, na.rm = TRUE);23.90552
+mean(DatasetGender1$sinc1_s, na.rm = TRUE);14.44878
+mean(DatasetGender1$fun1_s, na.rm = TRUE);15.47169
+mean(DatasetGender1$amb1_s, na.rm = TRUE);9.905204
+mean(DatasetGender1$shar1_s, na.rm = TRUE);11.47328
+mean(DatasetGender1$intel1_2, na.rm = TRUE);16.65588
+mean(DatasetGender1$attr1_2, na.rm = TRUE);30.34491
+mean(DatasetGender1$sinc1_2, na.rm = TRUE);15.06767
+mean(DatasetGender1$fun1_2, na.rm = TRUE);17.83782
+mean(DatasetGender1$amb1_2, na.rm = TRUE);8.475916
+mean(DatasetGender1$shar1_2, na.rm = TRUE);11.53543
+mean(DatasetGender1$intel1_3, na.rm = TRUE);19.08308
+mean(DatasetGender1$attr1_3, na.rm = TRUE);28.74211
+mean(DatasetGender1$sinc1_3, na.rm = TRUE);15.83767
+mean(DatasetGender1$fun1_3, na.rm = TRUE);16.66685
+mean(DatasetGender1$amb1_3, na.rm = TRUE);9.102337
+mean(DatasetGender1$shar1_3, na.rm = TRUE);11.0072
+"cor(DatasetGender1[c(""like"",""intel"",""attr"",""sinc"",""fun"",""amb"",""shar"")], use=""complete"")";like
+like;1
+intel;0.4914348
+attr;0.670274
+sinc;0.4842429
+fun;0.6645081
+amb;0.4571808
+shar;0.6415595
+"cor(DatasetGender1[c(""match"",""intel"",""attr"",""sinc"",""fun"",""amb"",""shar"")], use=""complete"")";match
+like;1
+intel;0.1719113
+attr;0.2643389
+sinc;0.1597733
+fun;0.2563597
+amb;0.1557894
+shar;0.2469223
