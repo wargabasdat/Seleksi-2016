@@ -3,7 +3,10 @@
 import sys
 import pandas as pd
 
+print("reading data...")
 dfs = pd.read_csv(sys.argv[1], index_col=0, chunksize=10000)
+
+print("writing up...")
 
 with open(sys.argv[2], 'w') as f:
     for df in dfs:
@@ -17,4 +20,5 @@ with open(sys.argv[2], 'w') as f:
         odds.index = pd.MultiIndex.from_tuples(odds.index.map(lambda x: (x[0], (x[1]-1)//2)))
         evens.index = pd.MultiIndex.from_tuples(evens.index.map(lambda x: (x[0], x[1]//2)))
         fdf = pd.concat([odds, evens], axis=1)
+
         fdf.to_csv(f, header=False)
