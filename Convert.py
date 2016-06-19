@@ -1,7 +1,7 @@
 import sys
 import pandas as pd
 
-dfs = pd.read_csv(sys.argv[1], index_col=0, chunksize=100)
+dfs = pd.read_csv(sys.argv[1], index_col=0, chunksize=10000)
 
 with open(sys.argv[2], 'w') as f:
     for df in dfs:
