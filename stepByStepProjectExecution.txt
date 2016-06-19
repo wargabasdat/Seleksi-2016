@@ -1,0 +1,6 @@
+Langkah eksekusi project
+1. Dengan project yang sudah disimpan dalam RStudio, jalankan ScriptEksplorasi1a.R.
+2. Setiap kali bagian visualisasi, jalankan bagian skrip visualisasi.
+3. Export gambar visualisasi tersebut ke dalam sebuah file PNG.
+4. Lakukan untuk semua jenis visualisasi.
+5. Ulangi dari langkah pertama dengan skrip ScriptEksplorasi1b.R.
