@@ -67,7 +67,7 @@ ds = ds[keep_col]
 ds.columns = ['Destination Latitude','Destination Longitude','Place ID','Place Name', 'Number of Places Passed By']
 #ds.columns = ['Destination Latitude','Destination Longitude','Place ID', 'Number of Places Passed By']
 """
-df.drop(['POLYLINE','TIMESTAMP','TRIP_ID','DAY_TYPE','ORIGIN_CALL','ORIGIN_STAND'], 
+df.drop(['POLYLINE','TIMESTAMP','TRIP_ID','DAY_TYPE','ORIGIN_CALL','ORIGIN_STAND'],
         axis=1, inplace=True)
 """
 df = df.join(ds)
@@ -138,5 +138,4 @@ df.to_csv('test_Lokasi_Terakhir_1.csv', index=False)
 df['TAXI_ID'] -= np.min(df['TAXI_ID'])   # makes csv smaller -> ids in [0, 980]
 """
 
-
-
+# df.iloc[df.count(level=0).lat.cumsum() - 1].reset_index().drop('level_1', axis=1).set_index('level_0')
