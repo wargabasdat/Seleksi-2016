@@ -192,12 +192,23 @@ train.streetcorner[which(train.streetcorner$Category=="KIDNAPPING"),'CollarCrime
 train.streetcorner[which(train.streetcorner$Category=="TRESPASS"),'CollarCrime'] = "blue"
 train.streetcorner[which(train.streetcorner$Category=="ARSON"),'CollarCrime'] = "blue"
 train.streetcorner[which(train.streetcorner$Category=="RECOVERED VEHICLE"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="BURGLARY"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="DRUG/NARCOTIC"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="DRUNKENNESS"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="PROSTITUTION"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="GAMBLING"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="SEX OFFENSES FORCIBLE"),'CollarCrime'] = "blue"
+train.streetcorner[which(train.streetcorner$Category=="SEX OFFENSES NON FORCIBLES"),'CollarCrime'] = "blue"
 
 #Menampilkan histogram kelompok kejahatan di San Francisco
 train.streetcorner %>% 
   ggplot(aes(x = factor(CollarCrime, levels=c('white', 'blue',
-                                            'other')))) +
+                                              'other')))) +
   geom_bar(aes(fill=factor(Category))) +
   ggtitle("Banyaknya Kejahatan di San Fransisco Perkelompok") +
   ylab("Banyak Kejahatan") +
-  xlab("Collar Crime") 
+  xlab("Collar Crime")
+
+#MENULIS TABEL KE FILE CSV
+write.csv(train.streetcorner, file = "train_new.csv")
+write.csv(test.streetcorner, file = "test_new.csv")
