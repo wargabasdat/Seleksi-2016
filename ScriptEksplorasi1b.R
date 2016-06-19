@@ -58,11 +58,12 @@ title(xlab="Faktor", ylab="Rata-rata",col.lab="red")
 
 ##Analisis Kedua dengan melihat ketertarikan pria kepada wanita dari waktu ke waktu dari dataMale
 #1_1 ketika mendaftarkan diri
+#1_s ketika kontes berlangsung
 #1_2 ketika follow up pertama
 #1_3 ketika follow up kedua
 
 #label untuk visualisasi
-timeLabel <- c("Sign up","Follow Up 1","Follow Up 2")
+timeLabel <- c("Sign up","Event On Going","Follow Up 1","Follow Up 2")
 
 #1_1
 intel11 <- mean(dataMale$intel1_1, na.rm=TRUE)
@@ -71,6 +72,14 @@ sinc11 <- mean(dataMale$sinc1_1, na.rm=TRUE)
 fun11 <- mean(dataMale$fun1_1, na.rm = TRUE)
 amb11 <- mean(dataMale$amb1_1, na.rm = TRUE)
 shar11 <- mean(dataMale$shar1_1, na.rm = TRUE)
+
+#1_s
+intel1s <- mean(dataMale$intel1_s, na.rm=TRUE)
+attr1s <- mean(dataMale$attr1_s, na.rm=TRUE)
+sinc1s <- mean(dataMale$sinc1_s, na.rm=TRUE)
+fun1s <- mean(dataMale$fun1_s, na.rm = TRUE)
+amb1s <- mean(dataMale$amb1_s, na.rm = TRUE)
+shar1s <- mean(dataMale$shar1_s, na.rm = TRUE)
 
 #1_2
 intel12 <- mean(dataMale$intel1_2, na.rm=TRUE)
@@ -89,17 +98,17 @@ amb13 <- mean(dataMale$amb1_3, na.rm = TRUE)
 shar13 <- mean(dataMale$shar1_3, na.rm = TRUE)
 
 #Merangkum masing-masing faktor
-intelAll <- c(intel11, intel12, intel13)
-attrAll <- c(attr11, attr12, attr13)
-sincAll <- c(sinc11, sinc12, sinc13)
-funAll <- c(fun11, fun12, fun13)
-ambAll <- c(amb11, amb12, amb13)
-sharAll <- c(shar11, shar12, shar13)
+intelAll <- c(intel11, intel1s, intel12, intel13)
+attrAll <- c(attr11, attr1s, attr12, attr13)
+sincAll <- c(sinc11, sinc1s, sinc12, sinc13)
+funAll <- c(fun11, fun1s, fun12, fun13)
+ambAll <- c(amb11, amb1s, amb12, amb13)
+sharAll <- c(shar11, shar1s, shar12, shar13)
 
 #visualisasi 1_1 s.d. 1_3
 p_range<-range(0,intelAll,attrAll,sincAll,funAll,ambAll,sharAll)
 plot(intelAll, type="o", col="blue", ylim=p_range, axes=FALSE, ann=F)
-axis(1, at=1:3, lab=timeLabel)
+axis(1, at=1:4, lab=timeLabel)
 axis(2, las=1)
 box()
 lines(attrAll, type="o", pch=22, lty=2, col="red")
