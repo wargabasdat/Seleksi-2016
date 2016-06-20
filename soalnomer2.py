@@ -4,6 +4,8 @@ import pandas
 import matplotlib.pyplot as plt
 import csv
 from math import *
+
+#deklarasi fungsi: menghitung jarak antara 2 koordinat
 def great_circle_distance(coordinates1, coordinates2):
   latitude1, longitude1 = coordinates1
   latitude2, longitude2 = coordinates2
@@ -12,11 +14,12 @@ def great_circle_distance(coordinates1, coordinates2):
               cos(longitude1*d) * cos(longitude2*d) *
               cos((latitude1 - latitude2) * d)) / d
 
+#deklarasi fungsi: mengembalikan boolean, apakah suatu koordinat berada dalam range (dari great_circle_distance)
 def in_range(coordinates1, coordinates2, range):
   return great_circle_distance(coordinates1, coordinates2) < range
 
 #nama file yang akan dibaca dan file hasil keluaran
-FILE='test.csv'
+FILE='train.csv'
 OUTPUTF='Lokasi akhir perjalanan.csv'
 
 #baca file dengan mengconvert nilai dari polyline dan diambil nilai akhirnya
