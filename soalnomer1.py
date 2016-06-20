@@ -58,5 +58,5 @@ with open(OUTPUTF, 'w', newline='') as fl:
 	tulisf = csv.writer(fl, delimiter=',')
 	lokasi = [u[numpy.argmax(numpy.apply_along_axis(numpy.bincount, axis, indices.reshape(poly2d.shape),None, numpy.max(indices) + 1), axis=axis)]]
 	tulisf.writerow(['Lokasi yang paling sering dikunjungi'])
-	tulisf.writerow([lokas])
 	tulisf.writerow(lokasi)
+	tulisf.writerow([lokas])
