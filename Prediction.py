@@ -1,3 +1,5 @@
+# Melakukan prediksi panjang perjalanan.
+# Cara penggunaan: python Prediction.py trainingdata.h5 testdata.h5 output.csv
 import sys
 import pandas as pd
 import numpy as np

@@ -1,5 +1,5 @@
 # Mengubah bentuk data menjadi lebih mudah digunakan.
-
+# Cara penggunaan: python Convert.py source.csv dest.csv
 import sys
 import pandas as pd
 

@@ -1,3 +1,5 @@
+# Mengubah bentuk data menjadi dapat digunakan oleh Prediction.py.
+# Cara penggunaan: python CreateMLData.py source.h5 dest.h5
 import sys
 import pandas as pd
 

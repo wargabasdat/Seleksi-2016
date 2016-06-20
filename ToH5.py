@@ -1,3 +1,5 @@
+# Mengubah format data dan melakukan pembersihan data.
+# Cara penggunaan: python ToH5.py source.csv dest.h5
 import sys
 import pandas as pd
 
