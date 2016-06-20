@@ -3,6 +3,18 @@ import numpy
 import pandas
 import matplotlib.pyplot as plt
 import csv
+from math import *
+def great_circle_distance(coordinates1, coordinates2):
+  latitude1, longitude1 = coordinates1
+  latitude2, longitude2 = coordinates2
+  d = pi / 180  # factor to convert degrees to radians
+  return acos(sin(longitude1*d) * sin(longitude2*d) +
+              cos(longitude1*d) * cos(longitude2*d) *
+              cos((latitude1 - latitude2) * d)) / d
+
+def in_range(coordinates1, coordinates2, range):
+  return great_circle_distance(coordinates1, coordinates2) < range
+
 #nama file yang akan dibaca dan file hasil keluaran
 FILE='test.csv'
 OUTPUTF='Lokasi akhir perjalanan.csv'
@@ -21,6 +33,14 @@ with open(OUTPUTF, 'w', newline='') as fl:
 	tulisf = csv.writer(fl, delimiter=',')
 	tulisf.writerow(['Lokasi akhir'])
 	for y in poly2d:
+		on=False
+		ind=0
+		while (on==False) or (ind<(len(meta))):
+			if in_range(y, meta[ind], 0.009 )==True:
+				tulisf.writerow([cek['Descricao'][ind]])
+				on=True
+		else:
+			ind=ind+1
 		tulisf.writerow([y])
 #nilai max dan min dari koordinat		
 lat_min, lat_max = numpy.percentile(poly2d[:,0], [2, 98])
