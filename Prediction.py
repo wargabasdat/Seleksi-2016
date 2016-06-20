@@ -10,9 +10,9 @@ df = pd.read_hdf(sys.argv[1])
 tdf = pd.read_hdf(sys.argv[2])
 
 X_train = df.as_matrix(['lat', 'lon'])
-y_train = (df.length.as_matrix())
+y_train = (df.length.as_matrix())*15
 X_test = tdf.as_matrix(['lat', 'lon'])
-y_test = (tdf.length.as_matrix())
+y_test = (tdf.length.as_matrix())*15
 
 id_test = tdf.index.to_series().as_matrix()
 
