@@ -8,7 +8,9 @@ library(RTextTools)
 library(ggplot2)
 
 #Function
-rm(list=ls(all=TRUE))
+#Every function is used for easier editting only (mostly control loop)
+
+#Erasing a list of string from a data frame
 cleanStr <- function(x, y) {
 	for (i in 1:(length(x))){
 		if (i %% 2){
@@ -20,6 +22,7 @@ cleanStr <- function(x, y) {
 	return(y)
 }
 
+#Splitting list with pre-defined format into data frame
 splitData <- function(x) {
 	y <- NULL
 	z <- NULL
@@ -34,6 +37,7 @@ splitData <- function(x) {
 	return(data.frame(Job = y, Category = z))
 }
 
+#Remove trainer data from original data
 removeData <- function(x,y) {
 	for (i in 1:(dim(x)[1])){
 		del <- grep(paste("^",x[i,1],"$",sep=""),as.character(y))
@@ -53,7 +57,7 @@ removeData <- function(x,y) {
 	return(y)
 }
 
-#Read Data
+#Read Data, Ordering, and Adding Category Column
 sTrain <- read.csv("Salaries.csv")
 sTrain <- sTrain[order(sTrain$JobTitle),]
 temp <- sTrain[,3]
@@ -62,6 +66,7 @@ rm(temp)
 sTrain$Category <- as.factor(tolower(sTrain$Category))
 
 #Cleaning (or it should be)
+#Replacing common sign and number
 sTrain$Category <- gsub(" [0-9]*$","",sTrain$Category)
 sTrain$Category <- gsub(" [i]*$","",sTrain$Category)
 sTrain$Category <- gsub(" [i]* "," ",sTrain$Category)
@@ -81,6 +86,7 @@ sTrain$Category <- gsub("\\)","",sTrain$Category)
 sTrain$Category <- gsub("\\$","",sTrain$Category)
 sTrain$Category <- gsub(" [ ]*"," ",sTrain$Category)
 
+#Replacing some special entry
 sTrain$Category <- gsub("aprntc statnry eng, sew plant","apprentice stationary engineer, sewage plant",sTrain$Category)
 sTrain$Category <- gsub("aprntcstatnry eng,wtrtreatplnt","apprentice stationary engineer,water treatment pln",sTrain$Category)
 sTrain$Category <- gsub("architectural assistant ","architectural assistant",sTrain$Category)
@@ -90,6 +96,7 @@ sTrain$Category <- gsub(" musm cnsrvt, aam"," museum conservator, asian art muse
 sTrain$Category <- gsub("asst chf prob ofc juv prob","asst chief probation officer-juvenile probation",sTrain$Category)
 sTrain$Category <- gsub("asst chf bur clm invest & admin","asst chief bureau of claims invest & admin",sTrain$Category)
 
+#Replacing common abbreviation
 a <- c("mgr","manager","emerg","emergency","sprv","supervisor","supv","supervisor","spec","specialist","coord","coordinator","const","construction","asst","assistant")
 sTrain$Category <- cleanStr(a,sTrain$Category)
 rm(a)
@@ -124,11 +131,13 @@ a <- c("sr","senior","sup","supervising","supv","supervising","ofcr","officer")
 sTrain$Category <- cleanStr(a,sTrain$Category)
 rm(a)
 
+#Making list based on edited job data
 sTrain$Category <- as.factor(sTrain$Category)
 l <- unique(sTrain$Category)
 ll <- l
 l <- as.character(l)
 
+#Training Data
 temp <- c(l[1],"Finance",l[2],"Finance",l[3],"Finance",l[9],"Administration",l[10],"Administration",l[11],"Administration",l[12],"Administration",l[13],"Administration",l[20],"Transportation",l[21],"Transportation",l[22],"Transportation",l[23],"Transportation",l[24],"Transportation",l[25],"Transportation")
 temp <- c(temp,l[36],"Others",l[37],"Others",l[38],"Others",l[39],"Others",l[43],"Others",l[44],"Others",l[45],"Engineering",l[46],"Construction",l[47],"Environtment",l[54],"Construction",l[55],"Construction",l[56],"Construction",l[60],"Others",l[61],"Transportation")
 temp <- c(temp,l[62],"Transportation",l[70],"Law",l[72],"Public Services",l[76],"Others",l[79],"Security",l[84],"Law",l[86],"Law",l[89],"Healthcare",l[96],"Energy",l[106],"Engineering",l[109],"Finance",l[111],"Security",l[114],"Law",l[121],"Law",l[122],"Law",l[123],"Law")
@@ -172,19 +181,19 @@ tl <- removeData(trainer,ll)
 tl <- as.factor(as.character(tl))
 rm(ll)
 
-#Adding dummy Category data to test data
+#Making test data frame and Adding dummy Category data to it
 test <- data.frame(Job = tl, Category = "X") 
 
-#Merging test and train data (tt -> Train and Test)
+#Merging test and train data frame(tt -> Train and Test)
 tt <- data.frame(Job = c(as.character(trainer[,1]),as.character(test[,1])), Category = c(as.character(trainer[,2]),as.character(test[,2])))
 copytt <- tt[-c(2)] #used for Document-Term Matrix
 rm(test)
 
-#Document-Term Matrix
+#Document-Term Matrix (Term Frequency - Inverse Document Frequency weighting)
 mat <- create_matrix(copytt, language="english", removeNumbers=FALSE, stemWords=FALSE, removePunctuation=FALSE, weighting=weightTfIdf)
 rm(copytt)
 
-#Container
+#Container (formatting test and train data to be used for predicting)
 con <- create_container(mat,t(tt[2]),trainSize=1:526, testSize=527:1234,virgin=FALSE)
 rm(tt)
 
@@ -192,7 +201,7 @@ rm(tt)
 mod <- train_models(con, algorithms=c("TREE","MAXENT","SVM","SLDA","BAGGING","BOOSTING"))
 pred <- classify_models(con, mod)
 
-#Check for least Others
+#Check for Least Others from Prediction Result
 length(grep("Others",pred[,1]))
 length(grep("Others",pred[,3]))
 length(grep("Others",pred[,5]))
@@ -209,7 +218,7 @@ data.frame(tl,pred[,9],pred[,10]) #TOO MANY OTHERS
 data.frame(tl,pred[,11],pred[,12])
 
 #MAXENT Algorithm is Chosen
-#Manual Checking
+#Manual Checking for Wrong Category
 t <- c(2,5,8,9,21,29,30,39,40,68,69,70,75,76,90,91,97,99,100,101,106,107,108,109,117,119,120,125,127,130,140,144,145,155,156,163,165,166,167,168,170,175,176,177,180,181,182,190,196,200)
 t <- c(t,206,209,213,216,217,219,222,225,230,236,240,243,245,246,247,257,259,262,263,264,265,267,268,269,277,285,286,289,297,298)
 t <- c(t,301,305,306,311,318,319,320,321,322,324,327,331,332,336,346,347,350,351,352,353,354,355,356,357,358,359,360,372)
@@ -222,7 +231,7 @@ result <- data.frame(Job = tl,Category = pred[,3])
 result[t,2] = "Others"
 rm(t,tl)
 
-#Complete Job and Category Listing
+#Complete Job and Category Data Frame
 complete <- data.frame(Job = c(as.character(trainer[,1]),as.character(result[,1])), Category = c(as.character(trainer[,2]),as.character(result[,2])))
 
 #Merging to main data frame
@@ -230,6 +239,7 @@ sTrain$Category <- as.character(sTrain$Category)
 complete$Job <- as.character(complete$Job)
 complete$Category <- as.character(complete$Category)
 
+#Minor Tweak for gsub() Function
 complete$Job <- gsub("\\$"," ",complete$Job)
 sTrain$Category <- gsub("\\$"," ",sTrain$Category)
 
