@@ -1,4 +1,21 @@
-# Seleksi-2016
+# Cara Memakai R
+Guys ni udah sempat cari2 tutorial, dicoba2 dulu ya.
+
+[Basic] - Buat yang basic banget, misal cara compile, ngerun, print, hitung mean tanpa agregasi, dll
+
+[Data import] - cara masukin .csv nya ke variabel
+
+[Hitung mean] - cara hitung rata-rata yang pake agregasi *__Tapi pake library laen__*
+
+[Buat Variabel Kategori] - cara mengelompokkan data ke dalam kategori-kategori
+
+[Buat Value Label] - Membuat label
+
+[R Data Types] - Tipe-tipe data yang ada di R
+
+[ggplot2 cheatsheet] - cheatsheet buat ggplot2, *__AWAS DOWNLOAD!__*
+
+## Seleksi-2016
 Seleksi Calon Warga Basdat 2016: Introduction to Data Science
 
 ## Spesifikasi Tugas
@@ -74,3 +91,11 @@ Opsi dataset yang dapat dipilih adalah berikut:
 ### Tambahan
 
 Meskipun Anda mengalami kesusahan dalam menyelesaikan tugas, kami harap agar Anda tetap melanjutkan eksplorasi dan melaporkan langkah2 apa saja yang telah Anda lakukan dan hasilnya. Selamat mengerjakan :)
+
+[Data import]: <http://www.r-tutor.com/r-introduction/data-frame/data-import>
+[Hitung mean]: <https://www.miskatonic.org/2012/09/24/counting-and-aggregating-r/>
+[Basic]: <http://www.tutorialspoint.com/r/r_basic_syntax.htm>
+[Buat Variabel Kategori]: <http://stackoverflow.com/questions/22075592/creating-category-variables-from-numerical-variable-in-r>
+[Buat Value Label]: <http://www.statmethods.net/input/valuelabels.html>
+[R Data Types]: <http://www.statmethods.net/input/datatypes.html>
+[ggplot2 cheatsheet]: <https://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf>
