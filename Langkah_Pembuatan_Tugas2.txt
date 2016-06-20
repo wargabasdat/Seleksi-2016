@@ -1,0 +1,15 @@
+Langkah-langkah eksekusi yang dilakukan
+
+- 	Menentukan Bahasa yang dilakukan. Karena kami merasa bahwa
+  	untuk menggunakan bahasa phyton itu lebih luas pemakaiannya, kami memutuskan untuk 
+  	menggunakan R
+-	Memahami meta-data
+- 	Mengeskplorasi tentang R dan menemukan IDE yang bagus untuk R, yaitu RStudio
+- 	Melakukan import data dan menyocokan dengan meta-data
+- 	Melakukan query-query dan syntax dengan cara mengesplorasi di internet 
+	untuk menggunakan bahasa R.
+- 	Menganalisis data, mulai dengan analisis sederhana seperti melihat summary pada 
+	suatu data, mencari rata-rata dll.
+- 	Mulai melakukan analisis yang sesuai dengan yang tertulis di Laporan_Analisis.pdf
+-	Mencari dan mengeksplorasi package yang baik dan mudah digunakan
+- 	Membuat laporan dan data yang digunakan untuk visualisasi kedalam .pdf dan .csv
