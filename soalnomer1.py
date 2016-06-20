@@ -4,6 +4,7 @@ import numpy
 import csv
 from math import *
 
+#deklarasi fungsi: menghitung jarak antara 2 koordinat
 def great_circle_distance(coordinates1, coordinates2):
   latitude1, longitude1 = coordinates1
   latitude2, longitude2 = coordinates2
@@ -12,11 +13,12 @@ def great_circle_distance(coordinates1, coordinates2):
               cos(longitude1*d) * cos(longitude2*d) *
               cos((latitude1 - latitude2) * d)) / d
 
+#deklarasi fungsi: mengembalikan boolean; apakah hasil great_circle_distance berada pada range
 def in_range(coordinates1, coordinates2, range):
   return great_circle_distance(coordinates1, coordinates2) < range
 
 #nama file yang akan dibaca dan file hasil keluaran
-FILE='test.csv' 
+FILE='train.csv' 
 OUTPUTF='Lokasi yang paling sering dikunjungi.csv'
 
 #baca file dengan mengconvert nilai dari polyline dan diambil nilai akhirnya
@@ -27,7 +29,7 @@ poly=[]
 for p in data['POLYLINE']:
 	if (len(p)>0):
 		poly=numpy.append(poly,[p[0][1],p[0][0]])
-#setelah di append di buat menjadi item yang berisi koordinat	
+#setelah di-append dibuat menjadi item yang berisi koordinat	
 poly2d= numpy.reshape(poly,(-1,2))
 #proses long dan lat dari cek
 lat=[]
@@ -53,7 +55,6 @@ while on==False:
 		on=True
 	else:
 		ind=ind+1
-		
 with open(OUTPUTF, 'w', newline='') as fl:
 	tulisf = csv.writer(fl, delimiter=',')
 	lokasi = [u[numpy.argmax(numpy.apply_along_axis(numpy.bincount, axis, indices.reshape(poly2d.shape),None, numpy.max(indices) + 1), axis=axis)]]
