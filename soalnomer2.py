@@ -12,7 +12,8 @@ data = pandas.read_csv(FILE, converters={'POLYLINE': lambda x: json.loads(x)[-1:
 #masukan nilainya kedalam satu, dan mennukar nilainya, lat dan long
 poly=[]
 for p in data['POLYLINE']:
-	poly=numpy.append(poly,[p[0][1],p[0][0]])
+	if (len(p)>0):
+		poly=numpy.append(poly,[p[0][1],p[0][0]])
 #setelah di append di buat menjadi item yang berisi koordinat	
 poly2d= numpy.reshape(poly,(-1,2))
 #koordinat lokasi terakhir dicatat dalam keluaran file
