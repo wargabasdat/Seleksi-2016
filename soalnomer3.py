@@ -3,14 +3,14 @@ import pandas
 from collections import Counter
 import csv
 
-FILE='test.csv'
+FILE='train.csv'
 OUTPUTF='Rata-rata waktu tempuh.csv'
 #baca file
 data = pandas.read_csv(FILE)
 #cari nilai koordinat selain nilai awal, tiap perpindahan koordinat 15 detik
 pindah = 0
 simpan = 0
-#catat perpindahan yang dilakukan, apabila data gps tidak lengkap, tidak dimasukan 
+#catat perpindahan yang dilakukan, apabila data gps tidak lengkap (value MISSING_DATA == true), tidak dimasukan 
 #ke perhitungan
 for p in data['POLYLINE']:
 	if (data['MISSING_DATA'][save]==False):
